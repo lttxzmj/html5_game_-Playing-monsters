@@ -57,8 +57,6 @@ section {
     top: -29px;
     left: 48px;
     background: url(../imgs/rocket.png) no-repeat;
-    animation: rocket 1s;
-    -webkit-animation: rocket 1s;
 }
 
 .main_page1 .thanks {
@@ -68,12 +66,6 @@ section {
     background: url(../imgs/thanks.png) no-repeat;
     top: 100px;
     left: 100px;
-    animation: thanks 1s;
-    -webkit-animation: thanks 1s;
-    animation-delay: 1s;
-    -webkit-animation-delay: 1s;
-    animation-fill-mode: forwards;
-    -webkit-animation-fill-mode: forwards;
 }
 
 .arrow {
@@ -88,4 +80,18 @@ section {
     -webkit-animation: arrow 1s;
     animation-iteration-count: infinite;
     -webkit-animation-iteration-count: infinite;
+}
+
+.sectionIn .main_page1 .rocket {
+    animation: rocket 1s;
+    -webkit-animation: rocket 1s;
+}
+
+.sectionIn .main_page1 .thanks {
+    animation: thanks 1s;
+    -webkit-animation: thanks 1s;
+    animation-delay: 1s;
+    -webkit-animation-delay: 1s;
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
 }
