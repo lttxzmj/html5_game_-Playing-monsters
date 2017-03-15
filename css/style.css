@@ -132,3 +132,22 @@ section {
 .musicStop {
     background: url(../imgs/stop.png) no-repeat;
 }
+
+.progress {
+    width: 465px;
+    height: 30px;
+    border: 1px solid #4091dc;
+    border-radius: 14px;
+    position: absolute;
+    bottom: 119px;
+    left: 50%;
+    margin-left: -231px;
+    overflow: hidden;
+}
+
+.progress span {
+    width: 0;
+    height: 28px;
+    display: block;
+    background-color: #4091dc;
+}
