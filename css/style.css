@@ -7,18 +7,6 @@ body {
     font-family: monospace;
 }
 
-section {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-.bgColor {
-    width: 100%;
-    height: 100%;
-    background-color: #2d4081;
-}
-
 .Bg-page1 {
     width: 429px;
     height: 429px;
@@ -32,12 +20,13 @@ section {
     box-shadow: 0 0 0 113px #283972, 0 0 0 114px #223161, 0 0 193px #2a3d79, 0 0 0 194px #273971, 0 0 0 254px #2c3f7e, 0 0 255px #2a3c79;
 }
 
-.bg-start {
+.bg-start, .bg-game {
     width: 100%;
     height: 100%;
     background: url(../imgs/star.png) no-repeat;
     background-size: cover;
     position: absolute;
+    background-color: #2d4081;
 }
 
 .main_page1 {
@@ -150,4 +139,36 @@ section {
     height: 28px;
     display: block;
     background-color: #4091dc;
+}
+
+.typeBar {
+    width: 100%;
+    height: 73px;
+    background: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    bottom: 0;
+}
+
+.typeBar .score {
+    width: calc((100%-50)/2);
+    height: 100%;
+    float: left;
+    background: url(../imgs/monster1.png) 23px 18px no-repeat;
+    background-size: 59px 51px;
+    text-indent: 82px;
+    line-height: 73px;
+    font-size: 30px;
+    color: #55b9f8;
+}
+
+.typeBar .time {
+    /*宽度是减去 music 的宽度，与 monster.png 各占一半*/
+    width: calc((100%-50)/2);
+    height: 100%;
+    float: left;
+    background: url(../imgs/clock.png) 23px 18px no-repeat;
+    text-indent: 60px;
+    font-size: 30px;
+    color: #ffe400;
+    line-height: 73px;
 }

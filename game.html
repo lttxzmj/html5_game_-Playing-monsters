@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>移动端 HTML5 开发</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <script type="text/javascript" src="js/lex.js"></script>
+</head>
+
+<body>
+    <div>
+        <div class="Bg-page1">
+        </div>
+        <div class=" bg-game">
+        </div>
+        <div class="typeBar">
+            <div class="score">sss</div>
+            <div class="time">sss</div>
+            <div class="music musicRun">
+                <audio src="audio/game.mp3" autoplay="true" preload="auto"></audio>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        window.onload = function() {
+            musicShow();
+
+            function musicShow() {
+                var music = document.getElementsByClassName('music')[0];
+                var musicClasses = music.classList;
+                console.log(music);
+                var au = music.getElementsByTagName('audio')[0];
+                bind(music, 'touchstart', function() {
+                    if (au.paused) {
+                        au.play();
+                        musicClasses.remove('musicStop');
+                        musicClasses.add('musicRun');
+                    } else {
+                        au.pause();
+                        musicClasses.remove('musicRun');
+                        musicClasses.add('musicStop');
+                    }
+                })
+            };
+        };
+    </script>
+</body>
+
+</html>
+
+</html>
+{ au.pause(); musicClasses.remove('musicRun'); musicClasses.add('musicStop'); } }) }; };
+</script>
+</body>
+
+</html>
+
+</html>
