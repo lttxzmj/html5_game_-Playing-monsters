@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animation.css">
     <script type="text/javascript" src="js/lex.js"></script>
+    <script type="text/javascript" src="js/jCanvaScript.1.5.18.min.js"></script>
 </head>
 
 <body>
@@ -15,46 +16,180 @@
         </div>
         <div class=" bg-game">
         </div>
+        <canvas id="game" style="position:absolute; z-index: 1"></canvas>
         <div class="typeBar">
             <div class="score">sss</div>
             <div class="time">sss</div>
             <div class="music musicRun">
-                <audio src="audio/game.mp3" autoplay="true" preload="auto"></audio>
+                <audio src="audio/game.mp3" preload="auto"></audio>
             </div>
         </div>
     </div>
     <script type="text/javascript">
-        window.onload = function() {
-            musicShow();
+        musicShow();
 
-            function musicShow() {
-                var music = document.getElementsByClassName('music')[0];
-                var musicClasses = music.classList;
-                console.log(music);
-                var au = music.getElementsByTagName('audio')[0];
-                bind(music, 'touchstart', function() {
-                    if (au.paused) {
-                        au.play();
-                        musicClasses.remove('musicStop');
-                        musicClasses.add('musicRun');
-                    } else {
-                        au.pause();
-                        musicClasses.remove('musicRun');
-                        musicClasses.add('musicStop');
-                    }
-                })
-            };
+        function musicShow() {
+            var music = document.getElementsByClassName('music')[0];
+            var musicClasses = music.classList;
+            var au = music.getElementsByTagName('audio')[0];
+            bind(music, 'touchstart', function() {
+                if (au.paused) {
+                    au.play();
+                    musicClasses.remove('musicStop');
+                    musicClasses.add('musicRun');
+                } else {
+                    au.pause();
+                    musicClasses.remove('musicRun');
+                    musicClasses.add('musicStop');
+                }
+            })
         };
+        gamePage();
+
+        function gamePage() {
+            var game = document.getElementById('game');
+            game.width = view().w;
+            game.height = view().h;
+
+            var _this = this;
+            _this.monster = {
+                mon1: function(option) {
+                    var img = new Image();
+                    img.src = 'imgs/monster1.png';
+                    img.onload = function() {
+                        jc.start(option.canvas);
+                        jc.image(img, -100, 100, 109, 114);
+                        jc.start(option.canvas);
+                    }
+                },
+                mon2: function(option) {
+                    var img = new Image();
+                    img.src = 'imgs/monster2.png';
+                    img.onload = function() {
+                        jc.start(option.canvas);
+                        jc.image(img, -100, 100, 109, 114);
+                        jc.start(option.canvas);
+                    }
+                },
+                mon3: function(option) {
+                    var img = new Image();
+                    img.src = 'imgs/monster3.png';
+                    img.onload = function() {
+                        jc.start(option.canvas);
+                        jc.image(img, -100, 100, 109, 114);
+                        jc.start(option.canvas);
+                    }
+                },
+                mon4: function(option) {
+                    var img = new Image();
+                    img.src = 'imgs/monster4.png';
+                    img.onload = function() {
+                        jc.start(option.canvas);
+                        jc.image(img, -100, 100, 109, 114);
+                        jc.start(option.canvas);
+                    }
+                }
+            };
+            //添加控制怪物出现次数的函数
+            _this.time = [10];
+            _this.arrNum = [];
+            var num = 1;
+
+            createNum();
+
+            function createNum() {
+                for (var i = 0; i < num; i++) {
+                    _this.arrNum.push(num);
+                };
+                num++;
+                if (num < 30) {
+                    createNum();
+                }
+            };
+
+            _this.passNum = 0;
+            _this.MinX = 50;
+            _this.MinY = 50;
+            _this.MaxX = view().w - 50;
+            _this.MaxY = view().h - 50;
+
+            createMonster();
+
+            function createMonster() {
+                for (var i = 0; i < _this.arrNum[passNum]; i++) {
+                    var mon = getNum({
+                        min: 1,
+                        max: 4,
+                        num: 1
+                    })[0];
+                    _this.monster['mon' + mon]({
+                        canvas: 'game',
+                        id: 'mon' + i + _this.passNum
+                    });
+                    var monM = new monMove({
+                        obj: 'mon' + i + _this.passNum
+                    });
+                }
+            };
+
+            function monMove(option) {
+                // 指定初始位置
+                var _that = this;
+                _that.obj = option.obj;
+
+                var firstPositionArea = getNum({
+                    min: 1,
+                    max: 4,
+                    num: 1
+                });
+                switch (firstPositionArea) {
+                    case 1:
+                        _that.X = getNum({
+                            min: _this.MinX,
+                            max: _this.MaxX,
+                            num: 1
+                        })[0];
+                        _that.Y = _this.MinY;
+                        break;
+                    case 2:
+                        _that.X = _this.MinX;
+                        _that.Y = getNum({
+                            min: _this.MinY,
+                            max: _this.MaxY,
+                            num: 1
+                        })[0];
+                        break;
+                    case 3:
+                        _that.X = getNum({
+                            min: _this.MinX,
+                            max: _this.MaxX,
+                            num: 1
+                        })[0];
+                        _that.Y = _this.MaxY;
+                        break;
+                    case 4:
+                        _that.X = _this.MaxX;
+                        _that.Y = getNum({
+                            min: _this.MinY,
+                            max: _this.MaxY,
+                            num: 1
+                        })[0];
+                        break;
+                }
+
+                setTimeout(function() {
+                    _that.run();
+                }, 1000);
+            };
+
+            monMove.prototype.run = function() {
+
+            };
+        }
     </script>
 </body>
 
 </html>
-
-</html>
-{ au.pause(); musicClasses.remove('musicRun'); musicClasses.add('musicStop'); } }) }; };
-</script>
-</body>
-
-</html>
+/body>
 
 </html>
