@@ -46,96 +46,115 @@
         };
         gamePage();
 
-        function gamePage() {
+        function gamePage(option) {
             var game = document.getElementById('game');
             game.width = view().w;
             game.height = view().h;
 
-            var _this = this;
-            _this.monster = {
+            var _that = this;
+            _that.monster = {
                 mon1: function(option) {
-                    var img = new Image();
-                    img.src = 'imgs/monster1.png';
-                    img.onload = function() {
+                    jc.start(option.canvas, true);
+                    var monster1 = new Image();
+                    monster1.src = 'imgs/monster1.png';
+                    monster1.onload = function() {
                         jc.start(option.canvas);
-                        jc.image(img, -100, 100, 109, 114);
-                        jc.start(option.canvas);
+                        jc.image(monster1, -200, -200, 109, 114).id(option.id).level(2);
                     }
                 },
                 mon2: function(option) {
-                    var img = new Image();
-                    img.src = 'imgs/monster2.png';
-                    img.onload = function() {
+                    jc.start(option.canvas, true);
+                    var monster2 = new Image();
+                    monster2.src = 'imgs/monster2.png';
+                    monster2.onload = function() {
                         jc.start(option.canvas);
-                        jc.image(img, -100, 100, 109, 114);
-                        jc.start(option.canvas);
+                        jc.image(monster2, -200, -200, 109, 114).id(option.id).level(2);
                     }
                 },
                 mon3: function(option) {
-                    var img = new Image();
-                    img.src = 'imgs/monster3.png';
-                    img.onload = function() {
+                    jc.start(option.canvas, true);
+                    var monster3 = new Image();
+                    monster3.src = 'imgs/monster3.png';
+                    monster3.onload = function() {
                         jc.start(option.canvas);
-                        jc.image(img, -100, 100, 109, 114);
-                        jc.start(option.canvas);
+                        jc.image(monster3, -200, -200, 109, 114).id(option.id).level(2);
                     }
                 },
                 mon4: function(option) {
-                    var img = new Image();
-                    img.src = 'imgs/monster4.png';
-                    img.onload = function() {
+                    jc.start(option.canvas, true);
+                    var monster4 = new Image();
+                    monster4.src = 'imgs/monster4.png';
+                    monster4.onload = function() {
                         jc.start(option.canvas);
-                        jc.image(img, -100, 100, 109, 114);
-                        jc.start(option.canvas);
+                        jc.image(monster4, -200, -200, 109, 114).id(option.id).level(2);
                     }
-                }
+                },
+                m1: [180, 138],
+                m2: [146, 84],
+                m3: [103, 94],
+                m2: [92, 107]
             };
+
             //添加控制怪物出现次数的函数
-            _this.time = [10];
-            _this.arrNum = [];
+            _that.time = [10];
+            _that.nonNum = [];
             var num = 1;
 
             createNum();
 
             function createNum() {
                 for (var i = 0; i < num; i++) {
-                    _this.arrNum.push(num);
+                    _that.nonNum.push(num);
                 };
                 num++;
                 if (num < 30) {
                     createNum();
-                }
+                };
             };
 
-            _this.passNum = 0;
-            _this.MinX = 50;
-            _this.MinY = 50;
-            _this.MaxX = view().w - 50;
-            _this.MaxY = view().h - 50;
+            _that.score = 0;
+            _that.MinX = 50;
+            _that.MinY = 50;
+            _that.MaxX = view().w - 50;
+            _that.MaxY = view().h - 50;
+            _that.monomer = {};
+            _that.position = {};
+            _that.num = 0;
 
-            createMonster();
+            _that.MaxX = _that.w - 120;
+            _that.maxY = _that.h - 150;
+            _that.roundT = 20000; //怪物公转一圈所用时间
+            _that.speed = 18; //所有怪物变化间隔时间（毫秒）
+
+            createMonste();
 
             function createMonster() {
-                for (var i = 0; i < _this.arrNum[passNum]; i++) {
+                for (var i = 0; i < _that.nonNum[score]; i++) {
                     var mon = getNum({
                         min: 1,
                         max: 4,
                         num: 1
                     })[0];
-                    _this.monster['mon' + mon]({
+                    _that.monster['mon' + mon]({
                         canvas: 'game',
-                        id: 'mon' + i + _this.passNum
+                        id: 'mon' + i + _that.score
                     });
                     var monM = new monMove({
-                        obj: 'mon' + i + _this.passNum
+                        obj: 'mon' + i + _that.score
                     });
                 }
             };
 
             function monMove(option) {
                 // 指定初始位置
-                var _that = this;
-                _that.obj = option.obj;
+                var _this = this;
+                _this.obj = option.obj;
+                _this.jdC = 200;
+                _this.jd = option.jd || -2;
+                _this.r = option.r || 200;
+                _this.clockwise = option.clockwise ? false : true;
+
+                _this.changeNum = ((_that.MaxX - _that.Minx) + (_that.MaxY - _that.MinY)) * 2 / (_that.roundT / _that.speed);
 
                 var firstPositionArea = getNum({
                     min: 1,
@@ -145,47 +164,75 @@
                 switch (firstPositionArea) {
                     case 1:
                         _that.X = getNum({
-                            min: _this.MinX,
-                            max: _this.MaxX,
+                            min: _that.MinX,
+                            max: _that.MaxX,
                             num: 1
                         })[0];
-                        _that.Y = _this.MinY;
+                        _that.Y = _that.MinY;
                         break;
                     case 2:
-                        _that.X = _this.MinX;
+                        _that.X = _that.MinX;
                         _that.Y = getNum({
-                            min: _this.MinY,
-                            max: _this.MaxY,
+                            min: _that.MinY,
+                            max: _that.MaxY,
                             num: 1
                         })[0];
                         break;
                     case 3:
                         _that.X = getNum({
-                            min: _this.MinX,
-                            max: _this.MaxX,
+                            min: _that.MinX,
+                            max: _that.MaxX,
                             num: 1
                         })[0];
-                        _that.Y = _this.MaxY;
+                        _that.Y = _that.MaxY;
                         break;
                     case 4:
-                        _that.X = _this.MaxX;
+                        _that.X = _that.MaxX;
                         _that.Y = getNum({
-                            min: _this.MinY,
-                            max: _this.MaxY,
+                            min: _that.MinY,
+                            max: _that.MaxY,
                             num: 1
                         })[0];
                         break;
                 }
-
-                setTimeout(function() {
+                _that.timer = setInterval(function() {
                     _that.run();
-                }, 1000);
+                }, _that.speed);
             };
 
             monMove.prototype.run = function() {
-
+                var _that = this;
+                if (_that.X <= _that.MaxX && _that.Y == _that.MinY && _that.X > _that.MinX) {
+                    // 这是第一条线
+                    _that.X = _that.X - _that.changeNum;
+                    if (_that.X < this.MinX) {
+                        _that.X = this.MinX;
+                    }
+                } else if (_that.X == _that.MinX && _that.Y < _that.MaxY) {
+                    // 这是第二条线
+                    _that.Y = _that.Y + _that.changeNum;
+                    if (_that.Y > this.MaxY) {
+                        _that.Y = this.MaxY;
+                    }
+                } else if (_that.X < _that.MaxX && _that.Y == _that.MaxY) {
+                    // 这是第三条线
+                    _that.X = _that.X + _that.changeNum;
+                    if (_that.X > this.MaxX) {
+                        _that.X = this.MaxX;
+                    }
+                } else if (_that.X == _that.MaxX && _that.Y <= _that.MaxY) {
+                    // 这是第四条线
+                    _that.Y = _that.Y - _that.changeNum;
+                    if (_that.Y < this.MinY) {
+                        _that.Y = this.MinY;
+                    }
+                };
+                jc('#' + _that.obj).animate({
+                    x: _that.x,
+                    y: _that.Y
+                }, 1)
             };
-        }
+        };
     </script>
 </body>
 
