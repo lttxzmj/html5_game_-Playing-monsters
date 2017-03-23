@@ -1,0 +1,174 @@
+body, div, section {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    font-family: monospace;
+}
+
+.Bg-page1 {
+    width: 429px;
+    height: 429px;
+    border: 1px solid #1f2b57;
+    background-color: #233264;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -214px 0 0 -214px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 113px #283972, 0 0 0 114px #223161, 0 0 193px #2a3d79, 0 0 0 194px #273971, 0 0 0 254px #2c3f7e, 0 0 255px #2a3c79;
+}
+
+.bg-start, .bg-game {
+    width: 100%;
+    height: 100%;
+    background: url(../imgs/star.png) no-repeat;
+    background-size: cover;
+    position: absolute;
+    background-color: #2d4081;
+}
+
+.main_page1 {
+    width: 429px;
+    height: 429px;
+    position: absolute;
+    top: 50%;
+    height: 50%;
+    margin-left: 217px;
+    margin-top: -217px;
+}
+
+.main_page1 .rocket {
+    width: 165px;
+    height: 195px;
+    position: absolute;
+    top: -29px;
+    left: 48px;
+    background: url(../imgs/rocket.png) no-repeat;
+}
+
+.main_page1 .thanks {
+    width: 400px;
+    height: 300px;
+    position: absolute;
+    background: url(../imgs/thanks.png) no-repeat;
+    top: 100px;
+    left: 100px;
+}
+
+.arrow {
+    width: 90px;
+    height: 65px;
+    position: absolute;
+    left: 50%;
+    margin-left: -45px;
+    bottom: 40px;
+    background: url(../imgs/arrow.png) no-repeat;
+    animation: arrow 1s;
+    -webkit-animation: arrow 1s;
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+}
+
+.sectionIn .main_page1 .rocket {
+    animation: rocket 1s;
+    -webkit-animation: rocket 1s;
+}
+
+.sectionIn .main_page1 .thanks {
+    animation: thanks 1s;
+    -webkit-animation: thanks 1s;
+    animation-delay: 1s;
+    -webkit-animation-delay: 1s;
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+}
+
+.sectionOut .main_page1 .rocket {
+    animation: rocketOut 1s;
+    -webkit-animation: rocketOut 1s;
+    opacity: 1;
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+}
+
+.sectionOut .main_page1 .thanks {
+    animation: thanksOut 1s;
+    -webkit-animation: thanksOut 1s;
+    animation-delay: 0.5s;
+    -webkit-animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+}
+
+.music {
+    width: 50px;
+    height: 47px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.musicRun {
+    background: url(../imgs/run.png) no-repeat;
+    animation: run 3s;
+    -webkit-animation: run 3s;
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+}
+
+.musicStop {
+    background: url(../imgs/stop.png) no-repeat;
+}
+
+.progress {
+    width: 465px;
+    height: 30px;
+    border: 1px solid #4091dc;
+    border-radius: 14px;
+    position: absolute;
+    bottom: 119px;
+    left: 50%;
+    margin-left: -231px;
+    overflow: hidden;
+}
+
+.progress span {
+    width: 0;
+    height: 28px;
+    display: block;
+    background-color: #4091dc;
+}
+
+.typeBar {
+    width: 100%;
+    height: 73px;
+    background: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    bottom: 0;
+}
+
+.typeBar .score {
+    width: calc((100%-50)/2);
+    height: 100%;
+    float: left;
+    background: url(../imgs/monster1.png) 23px 18px no-repeat;
+    background-size: 59px 51px;
+    text-indent: 82px;
+    line-height: 73px;
+    font-size: 30px;
+    color: #55b9f8;
+}
+
+.typeBar .time {
+    /*宽度是减去 music 的宽度，与 monster.png 各占一半*/
+    width: calc((100%-50)/2);
+    height: 100%;
+    float: left;
+    background: url(../imgs/clock.png) 23px 18px no-repeat;
+    text-indent: 60px;
+    font-size: 30px;
+    color: #ffe400;
+    line-height: 73px;
+}

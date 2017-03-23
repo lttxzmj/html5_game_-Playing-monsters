@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>移动端H5游戏开发</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <script type="text/javascript" src="js/lex.js">
+    </script>
+</head>
+
+<body>
+    <script type="text/javascript">
+        document.body.style.height = view().h + 'px';
+    </script>
+    <section class="sectionIn">
+        <div class="Bg-page1"></div>
+        <div class="bg-start"></div>
+        <div class="main_page1">
+            <div class="rocket"></div>
+            <div class="thanks"></div>
+        </div>
+        <div class="arrow"></div>
+        <div class="music musicRun">
+            <audio src="audio/bg.mp3" autoplay="true" preload="auto">
+          </audio>
+        </div>
+        <div class="progress">
+            <span></span>
+        </div>
+    </section>
+    <script type="text/javascript">
+        changePage();
+
+        function changePage() {
+            var section = document.getElementsByTagName('section'),
+                pageDown = 0;
+
+            bind(document, 'touchstart', function(ev) {
+                var ev = ev || event;
+                var pageDown = ev.changedTouches[0].pageY;
+            });
+            bind(document, 'touchstart', function(ev) {
+                var ev = ev || event;
+                var pageUp = ev.changedTouches[0].pageY;
+                if (pageUp > pageDown) {
+                    //向上播放下一篇
+                    removeClass(section[0], 'sectionIn');
+                    addClass(section[0], 'sectionOut');
+                }
+            });
+        };
+
+        musicShow();
+
+        function musicShow() {
+            var music = document.getElementsByClassName('music')[0];
+            var musicClasses = music.classList;
+            var au = music.getElementsByTagName('audio')[0];
+            bind(music, 'touchstart', function() {
+                if (au.paused) {
+                    au.play();
+                    musicClasses.remove('musicStop');
+                    musicClasses.add('musicRun');
+                } else {
+                    au.pause();
+                    musicClasses.remove('musicRun');
+                    musicClasses.add('musicStop');
+                }
+            })
+        };
+
+        var arrImg = ['imgs/arrow.png', 'imgs/rocket.png', 'imgs/run.png', 'imgs/star.png', 'imgs/stop.png', 'imgs/thanks.png'];
+        var progressBar = document.getElementsByClassName('progress')[0];
+        var prograssSpan = document.getElementsByTagName('span')[0];
+        for (var i = 0; i < arrImg.length; i++) {
+            var aImg = document.createElement('img');
+            var loadNum = 0;
+            aImg.src = arrImg[i];
+            aImg.onload = function() {
+                loadNum++;
+                prograssSpan.style.width = Math.floor(loadNum / arrImg.length) * 100 + '%';
+                if (loadNum === arrImg.length) {
+                    progressBar.remove();
+                }
+            };
+        };
+    </script>
+</body>
+
+</html>
+>
