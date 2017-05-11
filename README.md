@@ -1,2 +1,2 @@
-# html5_game_Playing_monsters
+# monsters
 A game of HTML5 on mobile end.
